@@ -1,0 +1,13 @@
+numpy
+matplotlib
+packaging
+pandas
+pyarrow
+fastparquet
+xarray
+bokeh
+holoviews
+hvplot
+panel
+datashader
+wordcloud
