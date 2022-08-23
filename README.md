@@ -16,6 +16,10 @@ The dashboard includes:
 
 - Two line charts showing the number of tweets and unique users on a daily basis within the current map extent;
 
+### The dashboard in action!!! :tv:
+
+https://user-images.githubusercontent.com/1726395/186170258-b7643044-cf66-41df-b6ef-8a5c4519eee5.mp4
+
 ### Twitter data ([link](https://github.com/ivandorte/panel-geodashboard-twitter/blob/main/data/rome_tweets.parquet))
 
 This dataset contains over 200k geotagged tweets in parquet format:
