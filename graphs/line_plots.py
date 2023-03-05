@@ -3,7 +3,7 @@ import numpy as np
 from bokeh.models import HoverTool
 from pd_utils.utils import filter_df_by_bbox
 
-LINE_COLOR = "#27aeef"
+LINE_COLOR = "#03DAC6"
 
 
 def get_daily_tweets(in_data, x_range, y_range):
