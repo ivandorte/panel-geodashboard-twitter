@@ -16,7 +16,7 @@ The dashboard includes:
 
 ### The dashboard
 
-![img](https://raw.githubusercontent.com/ivandorte/panel-geodashboard-twitter/main/assets/dashboard.png)
+![img](https://raw.githubusercontent.com/ivandorte/panel-geodashboard-twitter/main/assets/images/dashboard.png)
 
 ### Twitter data ([link](https://github.com/ivandorte/panel-geodashboard-twitter/blob/main/data/rome_tweets.parquet))
 
