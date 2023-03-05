@@ -10,15 +10,13 @@ The dashboard includes:
 
 - A bar plot showing the 5 most common languages within the current map extent;
 
-- A [wordcloud](https://amueller.github.io/word_cloud/) image showing the 10 most popular hashtags within the current map extent;
-
-- Two numeric indicators showing the number of tweets and unique users on a daily basis within the current map extent;
+- A [wordcloud](https://amueller.github.io/word_cloud/) SVG showing the 10 most popular hashtags within the current map extent;
 
 - Two line charts showing the number of tweets and unique users on a daily basis within the current map extent;
 
-### The dashboard in action!!! :tv:
+### The dashboard
 
-https://user-images.githubusercontent.com/1726395/186170258-b7643044-cf66-41df-b6ef-8a5c4519eee5.mp4
+![img](https://raw.githubusercontent.com/ivandorte/panel-geodashboard-twitter/main/assets/dashboard.png)
 
 ### Twitter data ([link](https://github.com/ivandorte/panel-geodashboard-twitter/blob/main/data/rome_tweets.parquet))
 
