@@ -2,7 +2,7 @@ import holoviews as hv
 from bokeh.models import HoverTool
 from pd_utils.utils import filter_df_by_bbox
 
-BAR_COLOR = "#27aeef"
+BAR_COLOR = "#03DAC6"
 
 
 def get_top5_langs(in_data, x_range, y_range):
