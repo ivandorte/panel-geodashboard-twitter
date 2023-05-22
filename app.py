@@ -1,5 +1,4 @@
 import os
-import pathlib
 
 import holoviews as hv
 import panel as pn
@@ -13,17 +12,15 @@ from pd_utils.utils import get_hashtags_df, load_data
 # Load the bokeh extension
 hv.extension("bokeh")
 
-# Set the sizing mode
-pn.extension(sizing_mode="stretch_both")
-
-ROOT = pathlib.Path(__file__).parent
+# Disable webgl: https://github.com/holoviz/panel/issues/4855
+hv.renderer("bokeh").webgl = False  # Disable Webgl
 
 # Twitter logo
-TWITTER_LOGO = os.path.join(ROOT, "assets", "images", "Twitter-logo.svg")
+TWITTER_LOGO = os.path.join("assets", "images", "Twitter-logo.svg")
 
 
 # Input Twitter data
-IN_TWITTER_DATA = os.path.join(ROOT, "data", "rome_tweets.parquet")
+IN_TWITTER_DATA = os.path.join("data", "rome_tweets.parquet")
 
 
 def create_twitter_dashboard():
@@ -116,7 +113,6 @@ def create_twitter_dashboard():
         site="",
         title="Twitter Dashboard - Rome (2018)",
         theme="dark",
-        main_layout="",
         theme_toggle=False,
         logo=TWITTER_LOGO,
         main=[layout],

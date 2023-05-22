@@ -1,6 +1,7 @@
 import holoviews as hv
 import numpy as np
-from bokeh.models import HoverTool
+import panel as pn
+from bokeh.models import HoverTool, WheelZoomTool
 from pd_utils.utils import filter_df_by_bbox
 
 LINE_COLOR = "#03DAC6"
@@ -11,6 +12,17 @@ def get_daily_tweets(in_data, x_range, y_range):
     Returns a line plot showing the number of tweets
     per day within the current map extent.
     """
+
+    def hook(plot, element):
+        """
+        Custom hook for disabling zoom on axis
+        """
+
+        # Disable zoom on axis
+        for tool in plot.state.toolbar.tools:
+            if isinstance(tool, WheelZoomTool):
+                tool.zoom_on_axis = False
+                break
 
     # Verify whether x_range or y_range are None
     if (x_range, y_range) == (None, None):
@@ -45,13 +57,14 @@ def get_daily_tweets(in_data, x_range, y_range):
     tweets_plt.opts(
         title=f"Total: {int(total_tweets)}",
         color=LINE_COLOR,
+        hooks=[hook],
         tools=[tweets_hover],
         alpha=0.7,
         xlabel="Time [Days]",
         ylabel="Tweets",
         yformatter="%.0f",
     )
-    return tweets_plt
+    return pn.panel(tweets_plt, sizing_mode="stretch_width")
 
 
 def get_daily_unique_users(in_data, x_range, y_range):
@@ -60,6 +73,17 @@ def get_daily_unique_users(in_data, x_range, y_range):
     Unique users per day within the current
     map extent.
     """
+
+    def hook(plot, element):
+        """
+        Custom hook for disabling zoom on axis
+        """
+
+        # Disable zoom on axis
+        for tool in plot.state.toolbar.tools:
+            if isinstance(tool, WheelZoomTool):
+                tool.zoom_on_axis = False
+                break
 
     # Verify whether x_range or y_range are None
     if (x_range, y_range) == (None, None):
@@ -95,10 +119,11 @@ def get_daily_unique_users(in_data, x_range, y_range):
     uu_plt.opts(
         title=f"Total: {int(unique_users)}",
         color=LINE_COLOR,
+        hooks=[hook],
         tools=[uu_hover],
         alpha=0.7,
         xlabel="Time [Days]",
         ylabel="Unique Users",
         yformatter="%.0f",
     )
-    return uu_plt
+    return pn.panel(uu_plt, sizing_mode="stretch_width")

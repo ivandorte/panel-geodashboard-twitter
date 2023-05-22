@@ -2,7 +2,7 @@
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
-A simple Panel-based dashboard visualizing geotagged tweets with hvplot and Datashader.
+A Panel-based dashboard visualizing geotagged tweets with hvplot and Datashader.
 
 The dashboard includes:
 
@@ -49,7 +49,7 @@ To run this dashboard you will need to do the following steps:
 
 1. Git clone this repository:
 
-`git clone https://github.com/ivandorte/panel-geodashboard-twitter.git`
+`git clone git@github.com:ivandorte/panel-geodashboard-twitter.git`
 
 `cd panel-geodashboard-twitter`
 
@@ -59,13 +59,18 @@ To run this dashboard you will need to do the following steps:
 
 3. Run the app
 
-`python -m panel serve app.py --show`
+`panel serve app.py --show`
 
 The dashboard will be available in your web browser!!!
 
 ### Deployment
 
 This dashboard has not been deployed yet.
+
+### ToDo
+
+- [ ] Deploy the dashboard on Hugging Face;
+- [ ] Sentiment Analysis using Hugging Face Transformers;
 
 ### References
 

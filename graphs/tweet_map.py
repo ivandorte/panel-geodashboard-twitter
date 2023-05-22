@@ -1,6 +1,6 @@
 import holoviews as hv
-import hvplot.pandas
-from bokeh.models import CustomJSHover, HoverTool
+from bokeh.models import HoverTool
+from holoviews.operation.datashader import dynspread, rasterize
 from scipy import spatial
 
 
@@ -9,42 +9,21 @@ def get_tweet_points(in_data):
     Returns a rasterized graph of tweet locations.
     """
 
-    # This function hide the tooltip when the bin value is NaN
-    hide_nan = CustomJSHover(
-        code="""
-        var value;
-        var tooltips = document.getElementsByClassName("bk-tooltip");
-        if (isNaN(value)) {
-            tooltips[0].hidden=true;
-        } else {
-            tooltips[0].hidden=false;
-        }
-            return value;
-        """
-    )
-
     # Define a custom Hover tool for the points
     points_hover = HoverTool(
-        tooltips=[("tweets", "@image{custom}")],
-        formatters={"@image": hide_nan},
+        tooltips=[("tweets", "@image")],
     )
 
     # Plot the tweet locations, apply rasterization and dynspread
-    out_points = in_data.hvplot.points(
-        x="x",
-        y="y",
-        rasterize=True,
-        dynspread=True,
-        cmap="viridis",
-        cnorm="eq_hist",
-        colorbar=False,
-        tools=[points_hover],
+    out_points = dynspread(rasterize(hv.Points(in_data, ["x", "y"]))).opts(
         frame_width=600,
         frame_height=400,
+        cmap="viridis",
+        cnorm="eq_hist",
+        xaxis=None,
+        yaxis=None,
+        tools=[points_hover],
     )
-
-    # Additional plot options
-    out_points.opts(xaxis=None, yaxis=None, active_tools=["wheel_zoom"])
     return out_points
 
 
