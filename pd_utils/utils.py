@@ -20,6 +20,7 @@ def load_data(data_path):
 
     # Read the parquet dataset
     out_data = pd.read_parquet(data_path, columns=columns)
+
     return out_data
 
 
@@ -44,6 +45,7 @@ def get_hashtags_df(in_data):
 
     # Explode list-like elements into rows
     out_data = out_data.explode("tweet_hashtags")
+
     return out_data
 
 

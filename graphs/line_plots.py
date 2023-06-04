@@ -1,10 +1,36 @@
-import holoviews as hv
+import hvplot.pandas  # noqa
 import numpy as np
-import panel as pn
+import pandas as pd
 from bokeh.models import HoverTool, WheelZoomTool
 from pd_utils.utils import filter_df_by_bbox
 
 LINE_COLOR = "#03DAC6"
+
+# An empty line plot - Daily tweets
+EMPTY_DF_DTWS = pd.DataFrame([[None, None]], columns=["tweet_date", "tweet_id"])
+EMPTY_LINE_PLOT_DTWS = EMPTY_DF_DTWS.hvplot.line(
+    title="Total: 0",
+    x="tweet_date",
+    y="tweet_id",
+    xlabel="Time [Days]",
+    ylabel="Tweets",
+    min_height=300,
+    min_width=300,
+    responsive=True,
+)
+
+# An empty line plot - Daily Unique users
+EMPTY_DF_DUU = pd.DataFrame([[None, None]], columns=["tweet_date", "user_id"])
+EMPTY_LINE_PLOT_DUU = EMPTY_DF_DUU.hvplot.line(
+    title="Total: 0",
+    x="tweet_date",
+    y="user_id",
+    xlabel="Time [Days]",
+    ylabel="Unique Users",
+    min_height=300,
+    min_width=300,
+    responsive=True,
+)
 
 
 def get_daily_tweets(in_data, x_range, y_range):
@@ -24,16 +50,12 @@ def get_daily_tweets(in_data, x_range, y_range):
                 tool.zoom_on_axis = False
                 break
 
-    # Verify whether x_range or y_range are None
-    if (x_range, y_range) == (None, None):
-        return None
-
     # Filter the tweet locations by bounding box
     out_data = filter_df_by_bbox(in_data, x_range, y_range)
 
     # Check if out_data is empty
     if out_data.shape[0] == 0:
-        return None
+        return EMPTY_LINE_PLOT_DTWS
 
     # Define a custom Hover tool
     tweets_hover = HoverTool(
@@ -51,20 +73,27 @@ def get_daily_tweets(in_data, x_range, y_range):
     total_tweets = tweets_df["tweet_id"].sum()
 
     # Create the line plot
-    tweets_plt = hv.Curve(tweets_df)
-
-    # Additional plot options
-    tweets_plt.opts(
+    tweets_plt = tweets_df.hvplot.line(
         title=f"Total: {int(total_tweets)}",
-        color=LINE_COLOR,
-        hooks=[hook],
-        tools=[tweets_hover],
-        alpha=0.7,
+        x="tweet_date",
+        y="tweet_id",
         xlabel="Time [Days]",
         ylabel="Tweets",
         yformatter="%.0f",
+        color=LINE_COLOR,
+        alpha=0.7,
+        tools=[tweets_hover],
+        min_height=300,
+        min_width=300,
+        responsive=True,
     )
-    return pn.panel(tweets_plt, sizing_mode="stretch_width")
+
+    # Additional plot options
+    tweets_plt.opts(
+        hooks=[hook],
+    )
+
+    return tweets_plt
 
 
 def get_daily_unique_users(in_data, x_range, y_range):
@@ -85,16 +114,12 @@ def get_daily_unique_users(in_data, x_range, y_range):
                 tool.zoom_on_axis = False
                 break
 
-    # Verify whether x_range or y_range are None
-    if (x_range, y_range) == (None, None):
-        return None
-
     # Filter the tweet locations by bounding box
     out_data = filter_df_by_bbox(in_data, x_range, y_range)
 
     # Check if out_data is empty
     if out_data.shape[0] == 0:
-        return None
+        return EMPTY_LINE_PLOT_DUU
 
     # Define a custom Hover tool
     uu_hover = HoverTool(
@@ -113,17 +138,22 @@ def get_daily_unique_users(in_data, x_range, y_range):
     unique_users = uu_df["user_id"].sum()
 
     # Create the line plot
-    uu_plt = hv.Curve(uu_df)
-
-    # Additional plot options
-    uu_plt.opts(
+    uu_plt = uu_df.hvplot.line(
         title=f"Total: {int(unique_users)}",
-        color=LINE_COLOR,
-        hooks=[hook],
-        tools=[uu_hover],
-        alpha=0.7,
+        x="tweet_date",
+        y="user_id",
         xlabel="Time [Days]",
         ylabel="Unique Users",
         yformatter="%.0f",
+        color=LINE_COLOR,
+        alpha=0.7,
+        tools=[uu_hover],
+        min_height=300,
+        min_width=300,
+        responsive=True,
     )
-    return pn.panel(uu_plt, sizing_mode="stretch_width")
+
+    # Additional plot options
+    uu_plt.opts(hooks=[hook])
+
+    return uu_plt

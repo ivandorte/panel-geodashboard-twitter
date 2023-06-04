@@ -5,9 +5,11 @@ import panel as pn
 from graphs.bar_plots import get_top5_langs
 from graphs.hashtags_plot import get_top10_hashtags
 from graphs.line_plots import get_daily_tweets, get_daily_unique_users
-from graphs.tweet_map import get_data_boundary, get_tweet_map, get_tweet_points
+from graphs.tweet_map import get_tweet_map, get_tweet_points
 from holoviews import streams
 from pd_utils.utils import get_hashtags_df, load_data
+
+pn.extension(notifications=True)
 
 # Load the bokeh extension
 hv.extension("bokeh")
@@ -18,7 +20,6 @@ hv.renderer("bokeh").webgl = False  # Disable Webgl
 # Twitter logo
 TWITTER_LOGO = os.path.join("assets", "images", "Twitter-logo.svg")
 
-
 # Input Twitter data
 IN_TWITTER_DATA = os.path.join("data", "rome_tweets.parquet")
 
@@ -28,7 +29,7 @@ def create_twitter_dashboard():
     This function creates the main Twitter dashboard
     """
 
-    # Load tweet locations as a DataFrame
+    # Load tweet locations and hashtags as a DataFrame
     twitter_data = load_data(IN_TWITTER_DATA)
 
     # Load tweet hashtags as a DataFrame
@@ -40,18 +41,17 @@ def create_twitter_dashboard():
     # Define a RangeXY stream linked to the tweet locations
     range_xy = streams.RangeXY(source=tweets_pts)
 
-    # Get data boundary
-    data_boundary = get_data_boundary(twitter_data)
-
     # Get the tweet map
-    tweet_map = get_tweet_map(tweets_pts, data_boundary)
+    tweet_map = get_tweet_map(tweets_pts)
 
     # Top 5 languages - Connect the bar plot to the RangeXY stream
-    top5_languages = pn.bind(
-        get_top5_langs,
-        in_data=twitter_data,
-        x_range=range_xy.param.x_range,
-        y_range=range_xy.param.y_range,
+    top5_languages = hv.DynamicMap(
+        pn.bind(
+            get_top5_langs,
+            in_data=twitter_data,
+            x_range=range_xy.param.x_range,
+            y_range=range_xy.param.y_range,
+        )
     )
 
     # Top 10 hashtags - Connect the wordcloud image to the RangeXY stream
@@ -63,35 +63,23 @@ def create_twitter_dashboard():
     )
 
     # Number of tweets (daily) - Connect the line plot to the RangeXY stream
-    tweets_daily = pn.bind(
-        get_daily_tweets,
-        in_data=twitter_data,
-        x_range=range_xy.param.x_range,
-        y_range=range_xy.param.y_range,
+    tweets_daily = hv.DynamicMap(
+        pn.bind(
+            get_daily_tweets,
+            in_data=twitter_data,
+            x_range=range_xy.param.x_range,
+            y_range=range_xy.param.y_range,
+        )
     )
 
     # Number of unique users (daily) - Connect the line plot to the RangeXY stream
-    unique_users_daily = pn.bind(
-        get_daily_unique_users,
-        in_data=twitter_data,
-        x_range=range_xy.param.x_range,
-        y_range=range_xy.param.y_range,
-    )
-
-    # Number of tweets (daily) - Connect the line plot to the RangeXY
-    tweets_daily = pn.bind(
-        get_daily_tweets,
-        in_data=twitter_data,
-        x_range=range_xy.param.x_range,
-        y_range=range_xy.param.y_range,
-    )
-
-    # Number of unique users (daily) - Connect the line plot to the RangeXY
-    unique_users_daily = pn.bind(
-        get_daily_unique_users,
-        in_data=twitter_data,
-        x_range=range_xy.param.x_range,
-        y_range=range_xy.param.y_range,
+    unique_users_daily = hv.DynamicMap(
+        pn.bind(
+            get_daily_unique_users,
+            in_data=twitter_data,
+            x_range=range_xy.param.x_range,
+            y_range=range_xy.param.y_range,
+        )
     )
 
     # Second tab - Top 5 Languages, Top 10 Hashtags
@@ -102,7 +90,8 @@ def create_twitter_dashboard():
 
     # Third tab - Daily data (Tweets, Unique users)
     daily_plots_tabs = pn.Tabs(
-        ("Tweets", tweets_daily), ("Unique Users", unique_users_daily)
+        ("Tweets", tweets_daily),
+        ("Unique Users", unique_users_daily),
     )
 
     # Compose the layout

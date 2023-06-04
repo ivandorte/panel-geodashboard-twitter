@@ -9,7 +9,7 @@ from wordcloud import WordCloud
 
 def get_top10_hashtags(in_data, x_range, y_range):
     """
-    Returns a matplotlib pane with a wordcloud image
+    Returns an SVG pane with a wordcloud image
     showing the top 10 hashtags within the current
     map extent.
     """
