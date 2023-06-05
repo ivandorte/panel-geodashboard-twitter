@@ -97,7 +97,7 @@ def create_twitter_dashboard():
     # Compose the layout
     layout = pn.Column(pn.Row(tweet_map, top5_10_tabs), daily_plots_tabs)
 
-    # Inizialize the MaterialTemplate
+    # Inizialize the FastListTemplate
     tw_tmpl = pn.template.FastListTemplate(
         site="",
         title="Twitter Dashboard - Rome (2018)",

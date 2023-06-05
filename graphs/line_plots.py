@@ -1,36 +1,10 @@
 import hvplot.pandas  # noqa
 import numpy as np
-import pandas as pd
 from bokeh.models import HoverTool, WheelZoomTool
+from graphs.no_data_utils import EMPTY_LINE_PLOT_DTWS, EMPTY_LINE_PLOT_DUU
 from pd_utils.utils import filter_df_by_bbox
 
 LINE_COLOR = "#03DAC6"
-
-# An empty line plot - Daily tweets
-EMPTY_DF_DTWS = pd.DataFrame([[None, None]], columns=["tweet_date", "tweet_id"])
-EMPTY_LINE_PLOT_DTWS = EMPTY_DF_DTWS.hvplot.line(
-    title="Total: 0",
-    x="tweet_date",
-    y="tweet_id",
-    xlabel="Time [Days]",
-    ylabel="Tweets",
-    min_height=300,
-    min_width=300,
-    responsive=True,
-)
-
-# An empty line plot - Daily Unique users
-EMPTY_DF_DUU = pd.DataFrame([[None, None]], columns=["tweet_date", "user_id"])
-EMPTY_LINE_PLOT_DUU = EMPTY_DF_DUU.hvplot.line(
-    title="Total: 0",
-    x="tweet_date",
-    y="user_id",
-    xlabel="Time [Days]",
-    ylabel="Unique Users",
-    min_height=300,
-    min_width=300,
-    responsive=True,
-)
 
 
 def get_daily_tweets(in_data, x_range, y_range):
@@ -123,7 +97,7 @@ def get_daily_unique_users(in_data, x_range, y_range):
 
     # Define a custom Hover tool
     uu_hover = HoverTool(
-        tooltips=[("Day", "@tweet_date{%F}"), ("Unique Users", "@user_id")],
+        tooltips=[("Day", "@tweet_date{%F}"), ("UU", "@user_id")],
         formatters={"@tweet_date": "datetime"},
         point_policy="follow_mouse",
     )
@@ -143,7 +117,7 @@ def get_daily_unique_users(in_data, x_range, y_range):
         x="tweet_date",
         y="user_id",
         xlabel="Time [Days]",
-        ylabel="Unique Users",
+        ylabel="Unique Users [UU]",
         yformatter="%.0f",
         color=LINE_COLOR,
         alpha=0.7,

@@ -1,23 +1,9 @@
 import hvplot.pandas  # noqa
-import pandas as pd
-import panel as pn
 from bokeh.models import HoverTool, WheelZoomTool
+from graphs.no_data_utils import EMPTY_BAR_PLOT, get_no_data_msg
 from pd_utils.utils import filter_df_by_bbox
 
 BAR_COLOR = "#03DAC6"
-
-# An empty bar plot
-EMPTY_DF = pd.DataFrame([[None, None]], columns=["index", "tweet_lang"])
-EMPTY_BAR_PLOT = EMPTY_DF.hvplot.bar(
-    title="",
-    x="index",
-    y="tweet_lang",
-    xlabel="Language",
-    ylabel="Tweets",
-    min_height=300,
-    min_width=300,
-    responsive=True,
-)
 
 
 def get_top5_langs(in_data, x_range, y_range):
@@ -43,12 +29,12 @@ def get_top5_langs(in_data, x_range, y_range):
     # Check if out_data is empty
     if out_data.shape[0] == 0:
         # Show a notification if there is no data to display
-        pn.state.notifications.warning("No Data to Display.", duration=2500)
+        get_no_data_msg()
         return EMPTY_BAR_PLOT
 
     # Define a custom Hover tool for the bar plot
     lang_hover = HoverTool(
-        tooltips=[("Language", "@index"), ("Tweets", "@tweet_lang")],
+        tooltips=[("Language", "@tweet_lang"), ("Tweets", "@count")],
         point_policy="follow_mouse",
     )
 
@@ -59,8 +45,8 @@ def get_top5_langs(in_data, x_range, y_range):
     # Create the bar plot
     lang_plt = lang_df.hvplot.bar(
         title="",
-        x="index",
-        y="tweet_lang",
+        x="tweet_lang",
+        y="count",
         xlabel="Language",
         ylabel="Tweets",
         yformatter="%.0f",
