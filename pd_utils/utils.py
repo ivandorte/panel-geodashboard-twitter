@@ -11,7 +11,10 @@ def load_data(data_path):
     columns = [
         "user_id",
         "tweet_id",
+        "tweet_text",
         "tweet_hashtags",
+        "tweet_sentiment",
+        "tweet_topic",
         "tweet_lang",
         "tweet_date",
         "x",

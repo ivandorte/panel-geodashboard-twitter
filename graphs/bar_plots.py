@@ -1,6 +1,5 @@
 import hvplot.pandas  # noqa
 from bokeh.models import HoverTool, WheelZoomTool
-from graphs.no_data_utils import EMPTY_BAR_PLOT, get_no_data_msg
 from pd_utils.utils import filter_df_by_bbox
 
 BAR_COLOR = "#03DAC6"
@@ -25,12 +24,6 @@ def get_top5_langs(in_data, x_range, y_range):
 
     # Filter the tweet locations by bounding box
     out_data = filter_df_by_bbox(in_data, x_range, y_range)
-
-    # Check if out_data is empty
-    if out_data.shape[0] == 0:
-        # Show a notification if there is no data to display
-        get_no_data_msg()
-        return EMPTY_BAR_PLOT
 
     # Define a custom Hover tool for the bar plot
     lang_hover = HoverTool(

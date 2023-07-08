@@ -2,7 +2,9 @@
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
-A Panel-based dashboard visualizing geotagged tweets with hvplot and Datashader.
+A Panel-based dashboard visualizing geotagged tweets with hvplot, Datashader and Echarts.
+
+![img](https://raw.githubusercontent.com/ivandorte/panel-geodashboard-twitter/main/assets/images/dashboard.png)
 
 The dashboard includes:
 
@@ -12,11 +14,13 @@ The dashboard includes:
 
 - A [wordcloud](https://amueller.github.io/word_cloud/) SVG showing the 10 most popular hashtags within the current map extent;
 
+- A pie chart showing the overall sentiment (positive/negative) within the current map extent;
+
 - Two line charts showing the number of tweets and unique users on a daily basis within the current map extent;
 
-### The dashboard
+### Deployed on
 
-![img](https://raw.githubusercontent.com/ivandorte/panel-geodashboard-twitter/main/assets/images/dashboard.png)
+Hugging Face: 
 
 ### Twitter data ([link](https://github.com/ivandorte/panel-geodashboard-twitter/blob/main/data/rome_tweets.parquet))
 
@@ -41,11 +45,12 @@ This dataset contains over 200k geotagged tweets in parquet format:
 | tweet_text | Tweet content |
 | tweet_hashtags | Comma separated list of the tweet hashtags |
 | tweet_lang | Tweet language |
+| tweet_sentiment | Sentiment Analysis (Multilingual model)|
+| tweet_topic | Topic Classification (English, single-label model) |
 | x | x-coordinate of the tweet |
 | y | y-coordinate of the tweet |
 
-### Set up
-To run this dashboard you will need to do the following steps:
+### How to run this app on your local system
 
 1. Git clone this repository:
 
@@ -61,28 +66,23 @@ To run this dashboard you will need to do the following steps:
 
 `panel serve app.py --show`
 
-The dashboard will be available in your web browser!!!
-
-### Deployment
-
-This dashboard has not been deployed yet.
-
-### ToDo
-
-- [ ] Deploy the dashboard on Hugging Face;
-- [ ] Sentiment Analysis using Hugging Face Transformers;
+The dashboard will be available in your default web browser!!!
 
 ### References
 
-- https://holoviz.org/
+- [HoloViz](https://holoviz.org/)
 
-- https://hvplot.holoviz.org
+- [hvplot](https://hvplot.holoviz.org)
 
-- https://examples.pyviz.org/index.html
+- [PyViz Topics Examples](https://examples.pyviz.org/index.html)
 
-- https://awesome-panel.org/
+- [Awesome Panel](https://awesome-panel.org/)
 
-- https://github.com/Ileriayo/markdown-badges
+- [TweetNLP](https://github.com/cardiffnlp/tweetnlp)
+
+- [Echarts](https://echarts.apache.org/examples/en/index.html)
+
+- [Markdown Badges](https://github.com/Ileriayo/markdown-badges)
 
 ### Authors
 

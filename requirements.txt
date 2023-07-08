@@ -5,10 +5,10 @@ pandas
 pyarrow
 fastparquet
 xarray
-bokeh
+bokeh>=3.1.1,<3.2.0
 holoviews
 hvplot
-panel
+panel==1.1.0
 datashader
 wordcloud
 lxml

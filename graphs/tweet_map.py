@@ -1,4 +1,5 @@
 import holoviews as hv
+import hvplot.pandas  # noqa
 from bokeh.models import HoverTool
 
 
