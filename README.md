@@ -20,7 +20,7 @@ The dashboard includes:
 
 ### Deployed on
 
-Hugging Face: 
+Hugging Face: https://huggingface.co/spaces/ivn888/Twitter-dashboard
 
 ### Twitter data ([link](https://github.com/ivandorte/panel-geodashboard-twitter/blob/main/data/rome_tweets.parquet))
 
