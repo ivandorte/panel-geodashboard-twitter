@@ -25,8 +25,8 @@ def get_tweet_points(in_data):
         cnorm="eq_hist",
         colorbar=False,
         tools=[points_hover],
-        frame_width=600,
-        frame_height=400,
+        width=600,
+        height=400,
     )
 
     return out_points

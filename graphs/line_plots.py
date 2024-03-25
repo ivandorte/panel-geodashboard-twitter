@@ -52,8 +52,8 @@ def get_daily_tweets(in_data, x_range, y_range):
         color=LINE_COLOR,
         alpha=0.7,
         tools=[tweets_hover],
-        min_height=300,
-        min_width=300,
+        min_height=200,
+        min_width=200,
         responsive=True,
     )
 
@@ -113,8 +113,8 @@ def get_daily_unique_users(in_data, x_range, y_range):
         color=LINE_COLOR,
         alpha=0.7,
         tools=[uu_hover],
-        min_height=300,
-        min_width=300,
+        min_height=200,
+        min_width=200,
         responsive=True,
     )
 
